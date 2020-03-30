@@ -13,3 +13,12 @@
 ​	Vue.js v2.6.10
 
 DEMO: https://www.qcrrm.com/japanese/index.html
+
+# 如何学习日语？ 
+
+
+
+当然是花大量时间去学习了。
+
+在保证花大量时间去学习的前提下，再去找学习方法和途径。
+
