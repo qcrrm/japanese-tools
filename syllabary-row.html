@@ -82,10 +82,15 @@
                         createList(arrayList);
                     } else {
                         loginPage();
+                        window.sessionStorage.setItem("redirectUrl", window.location.href);
+                        window.location.href = "/login/index.html";
                     }
                 },
                 error: function(xhr, type, errorThrown) {
-
+                    console.log(xhr);
+                    console.log(type);
+                    console.log(errorThrown);
+                    loginPage();
                 }
             });
         }
