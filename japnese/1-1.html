@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+        <script src="/static/js/jquery-1.10.2.min.js"></script>
+        <script src="/static/js/vue.js"></script>
+        <script src="/static/js/global-config.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    </head>
+    <body>
+        <div class="btn-group-lg" id="btn-column">
+            <button class="btn btn-deafult btn-info my-btn" v-for="columnBtn in columnBtnList" v-bind:value="columnBtn.value"
+                @click="show(columnBtn.value)">{{columnBtn.content}}</button>
+        </div>
+    </body>
+    <script>
+        setColumnBtn();
+        var appBtn = new Vue({
+            el: '#btn-column',
+            data: {
+                columnBtnList: []
+            },
+            methods: {
+                show() {
+                    alert(v);
+                }
+            }
+        });
+        $(".my-btn").click(function(e) {
+            alert("di");
+        });
+
+        function setColumnBtn() {
+            $.getJSON('json/columnList.json', function(data) {
+                appBtn.$data.columnBtnList = data;
+            });
+        }
+    </script>
+</html>
