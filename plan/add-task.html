@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>添加</title>
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/static/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+        <script src="/static/js/jquery-1.10.2.min.js"></script>
+        <script src="/static/js/vue.js"></script>
+        <script src="/static/js/global-config.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <style>
+            .container {
+                display: table;
+                height: 100px;
+                margin-top: 20px;
+            }
+
+            .row {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .row-centered {
+                text-align: center;
+            }
+
+            .col-centered {
+                display: inline-block;
+                float: none;
+                text-align: left;
+                /* margin-right: -4px; */
+            }
+            .from-group{
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row row-centered ">
+                <div class=" col-md-6 col-centered">
+                    <form id="addTaskForm" action="">
+                        <div class="from-group">
+                            <label for="content">内容:</label>
+                            <textarea class="form-control" rows="3" name="content" id="content"></textarea>
+                        </div>
+                        <div class="from-group">
+                            <label for="createDate">开始时间:</label>
+                            <input type="datetime" class="form-control" name="startTime" id="createDate" readonly/>
+                        </div>
+                        <button type="submit" class="btn btn-default" id="add">确定</button>
+                        <button type="button" class="btn btn-default" id="canel">取消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            $("input[name='startTime']").datetimepicker({
+                minView: "hour", //  选择时间时，最小可以选择到那层；默认是‘hour’也可用0表示
+                language: 'zh-CN', // 语言
+                autoclose: true, //  true:选择时间后窗口自动关闭
+                format: 'yyyy-mm-dd hh:mm:ss', // 文本框时间格式，设置为0,最后时间格式为2017-03-23 17:00:00
+                todayBtn: true // 如果此值为true 或 "linked"，则在日期时间选择器组件的底部显示一个 "Today" 按钮用以选择当前日期。
+                //startDate: new Date(), // 窗口可选时间从今天开始
+                //endDate: new Date() // 窗口最大时间直至今天
+            })
+            $("#add").click(function() {
+                var content = $("#content").val();
+                if (content == '') {
+                    alert("内容为空");
+                    return false;
+                }
+                var createDate = $("#createDate").val();
+                $.mui.ajax(baseUrl+'/api/v1/addTask', {
+                    data: {
+                        content: content,
+                        createDate: createDate
+                    },
+                    dataType: 'json', //服务器返回json格式数据
+                    type: 'post', //HTTP请求类型
+                    timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        window.close();
+                    },
+                    error: function(xhr, type, errorThrown) {
+
+                    }
+                });
+            });
+
+            $("#canel").click(function() {
+                window.close();
+            });
+        });
+    </script>
+</html>
